@@ -14,7 +14,25 @@
 
     <Button
         style="@style/TestButton"
-        android:onClick="stop"
+        android:onClick="stopRecord"
         android:text="Stop"
+        />
+
+    <Button
+        style="@style/TestButton"
+        android:onClick="convertToWav"
+        android:text="ConvertToWav"
+        />
+
+    <Button
+        style="@style/TestButton"
+        android:onClick="play1"
+        android:text="Play1"
+        />
+
+    <Button
+        style="@style/TestButton"
+        android:onClick="play2"
+        android:text="Play2"
         />
 </LinearLayout>

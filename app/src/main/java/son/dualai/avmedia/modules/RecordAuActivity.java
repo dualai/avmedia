@@ -5,19 +5,26 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import son.dualai.avmedia.R;
+
+import static son.dualai.avmedia.core.GlobalConfig.AUDIO_FORMAT;
+import static son.dualai.avmedia.core.GlobalConfig.CHANNEL_CONFIG;
+import static son.dualai.avmedia.core.GlobalConfig.SAMPLE_RATE_INHZ;
 
 /**
  * Created on 2019/2/14.
@@ -57,11 +64,26 @@ public class RecordAuActivity extends Activity {
 
     public void record(View v){
         isRecording = true;
+        final int minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE_INHZ,CHANNEL_CONFIG,AUDIO_FORMAT);
+        audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_INHZ, CHANNEL_CONFIG, AUDIO_FORMAT, minBufferSize);
+
+        final byte data[] = new byte[minBufferSize];
+        final File file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+        if (!file.mkdirs()) {
+            Log.e(TAG, "Directory not created");
+        }
+        if (file.exists()) {
+            file.delete();
+        }
+
+        audioRecord.startRecording();
+        isRecording = true;
+
 
 
     }
 
-    public void stop(View v){
+    public void stopRecord(View v){
         isRecording = false;
         // 释放资源
         if (null != audioRecord) {
@@ -72,6 +94,17 @@ public class RecordAuActivity extends Activity {
         }
     }
 
+    public void play1(View v){
+
+    }
+
+    public void play2(View v){
+
+    }
+
+    public void convertToWav(View v){
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -81,7 +114,6 @@ public class RecordAuActivity extends Activity {
                     Log.i(TAG, permissions[i] + " 权限被用户禁止！");
                 }
             }
-            // 运行时权限的申请不是本demo的重点，所以不再做更多的处理，请同意权限申请。
         }
     }
 
