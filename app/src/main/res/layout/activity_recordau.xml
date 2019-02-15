@@ -6,6 +6,7 @@
     android:gravity="center"
     >
     <Button
+        android:id="@+id/recordBtn"
         style="@style/TestButton"
         android:layout_marginTop="0dp"
         android:onClick="record"
@@ -34,5 +35,17 @@
         style="@style/TestButton"
         android:onClick="play2"
         android:text="Play2"
+        />
+
+    <Button
+        style="@style/TestButton"
+        android:onClick="stopPlay"
+        android:text="StopPlay"
+        />
+
+    <Button
+        style="@style/TestButton"
+        android:onClick="deleteRecord"
+        android:text="Delete Record"
         />
 </LinearLayout>
