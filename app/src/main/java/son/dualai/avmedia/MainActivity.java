@@ -28,5 +28,13 @@ public class MainActivity extends Activity {
 //        startActivity(new Intent(this,RecordAuActivity.class));
         startActivity(new Intent(this,To264Activity.class));
         finish();
+        byteBufferTest();
+    }
+
+    /**
+     * 测试ByteBuffer
+     */
+    private void byteBufferTest(){
+
     }
 }

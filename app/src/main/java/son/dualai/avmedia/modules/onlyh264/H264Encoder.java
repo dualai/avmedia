@@ -43,7 +43,7 @@ public class H264Encoder {
         MediaFormat mediaFormat = MediaFormat.createVideoFormat("video/avc", width, height);
         mediaFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar);
         mediaFormat.setInteger(MediaFormat.KEY_BIT_RATE, width * height * 5);
-        mediaFormat.setInteger(MediaFormat.KEY_FRAME_RATE, 30);
+        mediaFormat.setInteger(MediaFormat.KEY_FRAME_RATE, framerate);
         mediaFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 1);
         try {
             mediaCodec = MediaCodec.createEncoderByType("video/avc");
@@ -56,7 +56,7 @@ public class H264Encoder {
     }
 
     private void createfile() {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/test.mp4";
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/camera_acq.mp4";
         File file = new File(path);
         if (file.exists()) {
             file.delete();
