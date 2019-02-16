@@ -46,23 +46,7 @@ import static son.dualai.avmedia.core.GlobalConfig.AUDIO_FORMAT;
 
 //    ByteArrayStream相关
 //    https://blog.csdn.net/yhl_jxy/article/details/79287693
-public class RecordAuActivity extends Activity {
-
-
-    private static final int MY_PERMISSIONS_REQUEST = 1001;
-
-    /**
-     * 需要申请的运行时权限
-     */
-    private String[] permissions = new String[]{
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
-    /**
-     * 被用户拒绝的权限列表
-     */
-    private List<String> mPermissionList = new ArrayList<>();
+public class RecordAuActivity extends PmsActivity {
     private boolean isRecording;
     private AudioRecord audioRecord;
     private AudioTrack audioTrack;
@@ -78,7 +62,7 @@ public class RecordAuActivity extends Activity {
         setContentView(R.layout.activity_recordau);
         file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "avmedia_record.pcm");
         Log.d(file.getAbsolutePath());
-        checkPermissions();
+
         recordBtn = findViewById(R.id.recordBtn);
 
 //        String str = "helloworld,goodmorning";
@@ -370,34 +354,6 @@ public class RecordAuActivity extends Activity {
         }
         pcmToWavUtil.pcmToWav(file.getAbsolutePath(), wavFile.getAbsolutePath());
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == MY_PERMISSIONS_REQUEST) {
-            for (int i = 0; i < grantResults.length; i++) {
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    Log.i(permissions[i] + " 权限被用户禁止！");
-                }
-            }
-        }
-    }
-
-
-    private void checkPermissions() {
-        // Marshmallow开始才用申请运行时权限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            for (int i = 0; i < permissions.length; i++) {
-                if (ContextCompat.checkSelfPermission(this, permissions[i]) !=
-                        PackageManager.PERMISSION_GRANTED) {
-                    mPermissionList.add(permissions[i]);
-                }
-            }
-            if (!mPermissionList.isEmpty()) {
-                String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);
-                ActivityCompat.requestPermissions(this, permissions, MY_PERMISSIONS_REQUEST);
-            }
-        }
     }
 
 }

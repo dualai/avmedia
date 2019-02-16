@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 import son.dualai.avmedia.modules.RecordAuActivity;
+import son.dualai.avmedia.modules.onlyh264.To264Activity;
 
 public class MainActivity extends Activity {
 
@@ -24,7 +25,8 @@ public class MainActivity extends Activity {
 //        FileOutputStream
 //        OutputStreamWriter
 
-        startActivity(new Intent(this,RecordAuActivity.class));
-
+//        startActivity(new Intent(this,RecordAuActivity.class));
+        startActivity(new Intent(this,To264Activity.class));
+        finish();
     }
 }
